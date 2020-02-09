@@ -1,7 +1,7 @@
 // Author (Created): Roger "Equah" Hürzeler
 // Author (Modified): Roger "Equah" Hürzeler
 // Date (Created): 12019.12.27 HE
-// Date (Modified): 12020.01.05 HE
+// Date (Modified): 12020.02.09 HE
 // License: apache-2.0
 
 #include "equah/sblint.h"
@@ -20,6 +20,26 @@ size_t equah_sblint__bytes_to_int(unsigned char *b, size_t b_len, equah_sblint__
 	
 	while (sblint_len >= 1) {
 		*i += b[pos] << (8 * (sblint_len - 1));
+		sblint_len--;
+		pos++;
+	}
+	
+	return pos;
+}
+
+// [>] Single Bytes To Integer
+// [i] Uses given read function to convert single SBLInt bytes to integer.
+// [P] {unsigned char (*fn)()} fn_r => Pointer to function to read single bytes.
+// [P] {equah_sbsint__DEFAULT_INT_TYPE *} i => Integer to store SBLInt value.
+// [R] {size_t} => Amount of bytes read for SBLInt.
+size_t equah_sblint__sbytes_to_int(unsigned char (*fn_r)(), equah_sblint__DEFAULT_INT_TYPE *i) {
+	
+	equah_sbsint__DEFAULT_INT_TYPE sblint_len;
+	size_t pos = equah_sbsint__sbytes_to_int(fn_r, &sblint_len);
+	*i = 0;
+	
+	while (sblint_len >= 1) {
+		*i += fn_r() << (8 * (sblint_len - 1));
 		sblint_len--;
 		pos++;
 	}
@@ -47,6 +67,27 @@ size_t equah_sblint__int_to_bytes(equah_sblint__DEFAULT_INT_TYPE i, unsigned cha
 	}
 	
 	return size;
+}
+
+// [>] Integer To Single Bytes
+// [i] Uses given function to write integer as single SBLInt bytes.
+// [P] {equah_sbsint__DEFAULT_INT_TYPE} i => Integer to convert to SBLInt bytes.
+// [P] {unsigned char *} b => Char buffer to write SBLInt.
+// [P] {size_t} b_len => Amount of available space in buffer.
+// [R] {size_t} => Amount of bytes written for SBLInt.
+size_t equah_sblint__int_to_sbytes(equah_sblint__DEFAULT_INT_TYPE i, void (*fn_w)(unsigned char)) {
+	
+	size_t shift = equah_sblint__required_int_bytes(i);
+	
+	size_t pos = equah_sbsint__int_to_sbytes(shift, fn_w);
+	
+	while (shift > 0) {
+		fn_w((i >> (8 * (shift - 1))) & 0xFF);
+		pos++;
+		shift--;
+	}
+	
+	return pos;
 }
 
 // [>] Required Bytes

@@ -1,7 +1,7 @@
 // Author (Created): Roger "Equah" Hürzeler
 // Author (Modified): Roger "Equah" Hürzeler
 // Date (Created): 12019.12.27 HE
-// Date (Modified): 12020.01.05 HE
+// Date (Modified): 12020.02.09 HE
 // License: apache-2.0
 
 #ifndef equah_sblint__HEADER
@@ -23,7 +23,9 @@
 size_t equah_sblint__required_bytes(equah_sblint__DEFAULT_INT_TYPE);
 size_t equah_sblint__required_int_bytes(equah_sblint__DEFAULT_INT_TYPE);
 size_t equah_sblint__bytes_to_int(unsigned char *, size_t, equah_sblint__DEFAULT_INT_TYPE *);
+size_t equah_sblint__sbytes_to_int(unsigned char (*)(), equah_sblint__DEFAULT_INT_TYPE *);
 size_t equah_sblint__int_to_bytes(equah_sblint__DEFAULT_INT_TYPE, unsigned char *, size_t);
+size_t equah_sblint__int_to_sbytes(equah_sblint__DEFAULT_INT_TYPE, void (*)(unsigned char));
 
 
 #endif
