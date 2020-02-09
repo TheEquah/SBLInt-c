@@ -1,7 +1,7 @@
 <!-- Author (Created): Roger "Equah" Hürzeler -->
 <!-- Author (Modified): Roger "Equah" Hürzeler -->
 <!-- Date (Created): 12019.12.27 HE -->
-<!-- Date (Modified): 12020.01.05 HE -->
+<!-- Date (Modified): 12020.02.09 HE -->
 <!-- License: apache-2.0 -->
 
 **SBLInt [C]**
@@ -46,5 +46,11 @@ This repository provides the following example uses for SBLInt.
 Example which converts an integer to SBLInt and back.
 
 Directory: [`/example/convert/`](https://github.com/TheEquah/SBLInt-c/tree/master/example/convert/)
+
+## Convert Stream
+
+Example which converts an integer to SBLInt and back using the "single byte read/write" functions.
+
+Directory: [`/example/convert/`](https://github.com/TheEquah/SBLInt-c/tree/master/example/convert_stream/)
 
 --------------------------------------------------------------------------------
